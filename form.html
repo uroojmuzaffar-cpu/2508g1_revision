@@ -1,11 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login Form</title>
+  <style>
+    body {
+      background: #f0f2f5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    span.error {
+      font-size: 14px;
+      color: red;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      margin-bottom: 25px;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
+
 <body>
-    
+  <div class="login-container">
+    <h2>Login Form</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" />
+      <span id="userError" class="error"></span>
+
+      <input type="email" id="email" placeholder="Email" />
+      <span id="emailError" class="error"></span>
+
+      <input type="password" id="password" placeholder="Password" />
+      <span id="passError" class="error"></span>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+
+    const form = document.getElementById("loginForm");
+    const user = document.getElementById("username");
+    const email = document.getElementById("email");
+    const pass = document.getElementById("password");
+
+    const userError = document.getElementById("userError");
+    const emailError = document.getElementById("emailError");
+    const passError = document.getElementById("passError");
+
+ form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let isValid = true;
+
+      if (user.value.length < 3) {
+        userError.innerText = "Username too short!";
+        isValid = false;
+      }
+
+      if (!isValidEmail(email.value)) {
+        emailError.innerText = "Invalid email format!";
+        isValid = false;
+      }
+
+      if (pass.value.length < 6) {
+        passError.innerText = "Password too short!";
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert("Login successful!");
+        // Further logic here
+      }
+    });
+
+
+
+    // Email format checker
+    function isValidEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    }
+
+    // Real-time validation
+    user.addEventListener("keyup", function () {
+      userError.innerText = user.value.length < 3 ? "Minimum 3 characters" : "";
+    });
+
+    email.addEventListener("keyup", function () {
+      emailError.innerText = isValidEmail(email.value) ? "" : "Invalid email format";
+    });
+
+    pass.addEventListener("keyup", function () {
+      passError.innerText = pass.value.length < 6 ? "Minimum 6 characters" : "";
+    });
+
+    // On form submit
+   
+  </script>
 </body>
+
 </html>
